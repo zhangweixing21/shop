@@ -26,4 +26,11 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\V1'], function ($api) 
     $api->post('refresh', 'AuthController@refresh');
     $api->post('me', 'AuthController@me');
     $api->get('test', 'AuthController@test');
+
+    $api->post('index', 'IndexConteoller@index');
+    $api->post('search', 'IndexConteoller@search');
+
+    $api->post('detail', 'ProductsController@detail');
+    $api->post('favor', 'ProductsController@favor');
+    $api->post('disfavor', 'ProductsController@disfavor');
 });
