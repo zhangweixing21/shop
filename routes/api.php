@@ -30,7 +30,16 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\V1'], function ($api) 
     $api->post('index', 'IndexConteoller@index');
     $api->post('search', 'IndexConteoller@search');
 
+    $api->post('category', 'ProductsController@category');
     $api->post('detail', 'ProductsController@detail');
+    $api->post('myfavor', 'ProductsController@myfavor');
     $api->post('favor', 'ProductsController@favor');
     $api->post('disfavor', 'ProductsController@disfavor');
+
+    $api->post('addresses', 'UserAddressesController@addresses');
+    $api->post('upresses', 'UserAddressesController@upresses');
+    $api->post('addressdet', 'UserAddressesController@addressdet');
+    $api->post('getaddress', 'UserAddressesController@getaddress');
+    $api->post('updefault', 'UserAddressesController@updefault');
+    $api->post('deladdress', 'UserAddressesController@deladdress');
 });

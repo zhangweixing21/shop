@@ -12,6 +12,13 @@ class ProductsType extends Model
     protected $table = 'products_type';
     protected $fillable = ['title'];
 
+    /**
+     * 获得此分类下的所有商品。
+     */
+    public function cate_products()
+    {
+        return $this->hasMany(Product::class,'type','id');
+    }
 
     protected static function ispre($id){
         $result = Product::where('type',$id)->first();

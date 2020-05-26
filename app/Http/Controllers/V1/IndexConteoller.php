@@ -19,6 +19,10 @@ use Illuminate\Support\Str;
 class IndexConteoller extends AuthController
 {
 
+    /**
+     * 首页
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(){
         $data = [];
         $index = new Index();
@@ -29,6 +33,11 @@ class IndexConteoller extends AuthController
         return $this->formatAsjson($data);
     }
 
+    /**
+     * 搜索
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function search(Request $request){
         // 创建一个查询构造器
         $builder = Product::query()->select(['id','title','image','sold_count','price'])->where('on_sale', true);
