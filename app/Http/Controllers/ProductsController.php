@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidRequestException;
-use Illuminate\Http\Request;
-use App\Models\Product;
 use App\Models\OrderItem;
+use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -42,7 +42,7 @@ class ProductsController extends Controller
         }
 
         $products = $builder->paginate(16);
-
+//        var_dump($products);
         return view('products.index', [
             'products' => $products,
             'filters'  => [
@@ -54,6 +54,7 @@ class ProductsController extends Controller
 
     public function show(Product $product, Request $request)
     {
+        // 判断商品是否已经上架，如果没有上架则抛出异常。
         if (!$product->on_sale) {
             throw new InvalidRequestException('商品未上架');
         }
@@ -65,7 +66,7 @@ class ProductsController extends Controller
             // boolval() 函数用于把值转为布尔值
             $favored = boolval($user->favoriteProducts()->find($product->id));
         }
-        
+
         $reviews = OrderItem::query()
             ->with(['order.user', 'productSku']) // 预先加载关联关系
             ->where('product_id', $product->id)
@@ -73,8 +74,7 @@ class ProductsController extends Controller
             ->orderBy('reviewed_at', 'desc') // 按评价时间倒序
             ->limit(10) // 取出 10 条
             ->get();
-        
-        // 最后别忘了注入到模板中
+
         return view('products.show', [
             'product' => $product,
             'favored' => $favored,
